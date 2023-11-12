@@ -3,7 +3,7 @@ import { Link } from "../interfaces/link";
 export const links: Link[] = [
     {
         label: "Game",
-        link: "/game"
+        link: "/"
     },
     {
         label: "Pokédex",

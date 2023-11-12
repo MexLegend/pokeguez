@@ -1,0 +1,68 @@
+<section class="pokemon-container tw-flex tw-flex-col tw-px-4 tw-overflow-y-auto tw-max-h-full">
+    <div class="tw-mb-4 tw-flex tw-flex-col tw-flex-1">
+        <ng-container [ngTemplateOutlet]="body" [ngTemplateOutletContext]="{$implicit: data.pokemon}"></ng-container>
+    </div>
+</section>
+
+<ng-template #body let-pokemon>
+    <div class="tw-flex tw-flex-1 tw-flex-col">
+        <div class="tw-flex tw-flex-1 tw-flex-col tw-z-10 tw-gap-3">
+            <div class="tw-flex tw-w-full tw-items-center tw-justify-between">
+                <h3 class="tw-font-semibold tw-text-2xl tw-font-roboto-slab tw-text-white tw-capitalize">
+                    {{pokemon.name}}
+                </h3>
+                <span class="tw-font-medium tw-text-white tw-font-roboto-slab tw-tracking-widest">#094</span>
+            </div>
+            <div class="tw-flex tw-justify-center tw-items-center tw-w-full tw-max-w-[226px] tw-mx-auto tw-mt-2">
+                <img class="tw-drop-shadow-lg" [src]="pokemon.sprites.other.dream_world.front_default"
+                    alt="pokemon_thumbnail">
+            </div>
+            <div class="tw-flex tw-gap-6 tw-w-full tw-items-center tw-justify-center tw-my-5">
+                <app-pokemon-type-tag [type]="type" *ngFor="let type of pokemon.types"
+                    customClasses="!tw-px-10 !tw-py-[6px]" />
+            </div>
+            <div class="tw-flex tw-w-full tw-items-center tw-justify-evenly">
+                <app-pokemon-section-info title="Shadow" subtitle="Category" />
+                <div class="
+                    tw-flex 
+                    tw-px-8
+                    tw-mx-8
+                    tw-border-l 
+                    tw-border-r 
+                    tw-border-l-primary-color/40 
+                    tw-border-r-primary-color/40
+                    ">
+                    <app-pokemon-section-info [title]="(pokemon.height / 10) + ' M'" subtitle="Heigth" />
+                </div>
+                <app-pokemon-section-info [title]="(pokemon.weight / 10) + ' KG'" subtitle="Weigth" />
+            </div>
+            <div class="flex tw-w-full tw-items-center tw-justify-center tw-text-center">
+                <h4 class="tw-text-white tw-font-semibold tw-text-xl tw-font-roboto-slab tw-my-3">Evolutions</h4>
+                <div class="tw-flex tw-items-center tw-justify-evenly">
+                    <app-pokemon-evolution />
+                </div>
+            </div>
+            <div class="flex tw-w-full tw-items-center tw-justify-center tw-text-center">
+                <h4 class="tw-text-white tw-font-semibold tw-text-xl tw-font-roboto-slab tw-my-3">Stats</h4>
+                <div class="tw-flex tw-flex-col tw-items-center tw-justify-evenly">
+                    <app-pokemon-stat label="HP" [value]="78" [maxValue]="250" class="tw-w-full" />
+                    <app-pokemon-stat label="Attack" [value]="84" [maxValue]="134" class="tw-w-full" />
+                    <app-pokemon-stat label="Defense" [value]="78" [maxValue]="80" class="tw-w-full" />
+                    <app-pokemon-stat label="Speed" [value]="100" [maxValue]="140" class="tw-w-full" />
+                    <app-pokemon-stat label="Special" [value]="109" [maxValue]="135" class="tw-w-full" />
+                </div>
+            </div>
+        </div>
+        <div class="
+            tw-z-0
+            tw-absolute 
+            -tw-top-[30rem]
+            -tw-left-[25%]
+            tw-mx-auto
+            tw-bg-primary-color 
+            tw-blur-3xl
+            tw-w-[150%] 
+            tw-aspect-square 
+            tw-rounded-full"></div>
+    </div>
+</ng-template>

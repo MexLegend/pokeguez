@@ -1,0 +1,25 @@
+<div class="tw-flex tw-flex-1 tw-flex-col tw-justify-center tw-w-full tw-font-roboto-slab tw-px-3 tw-my-3">
+    <div class="tw-flex tw-flex-1 tw-items-center tw-w-full tw-gap-5">
+        <div class="tw-flex tw-gap-4 tw-pb-2 tw-mr-2">
+            <p class="tw-text-white/80 tw-text-sm tw-w-14 tw-text-left">{{label}}</p>
+            <span class="tw-text-white tw-font-semibold tw-w-7 tw-text-right">{{value}}</span>
+        </div>
+        <ul class="tw-flex tw-flex-1 tw-w-full tw-gap-1 tw-rounded-[4px]">
+            <li *ngFor="let item of [].constructor(15); let i = index" class="
+                    flex 
+                    tw-flex-1 
+                    tw-rounded-[4px] 
+                    tw-bg-gradient-to-t 
+                    tw-from-primary-color/20
+                    tw-to-primary-color/30 
+                    tw-h-7 
+                    -tw-skew-x-[20deg]
+                    " [ngClass]="{'!tw-from-primary-color/40 !tw-to-primary-color': (i + 1) <= statBarPercentage()}">
+            </li>
+        </ul>
+    </div>
+    <div class="tw-flex tw-justify-end tw-text-sm tw-gap-2 tw-items-center tw-text-right tw-text-white">
+        <small>Max:</small>
+        <h3 class="tw-font-medium">{{maxValue}}</h3>
+    </div>
+</div>

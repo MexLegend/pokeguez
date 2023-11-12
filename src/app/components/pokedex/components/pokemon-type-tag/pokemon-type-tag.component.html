@@ -1,0 +1,13 @@
+<div class="
+    tw-flex
+    tw-gap-1
+    tw-rounded-full
+    tw-text-xs 
+    tw-font-semibold 
+    tw-py-1 
+    tw-px-4 
+    tw-text-white 
+    tw-uppercase" [ngClass]="customClasses" [style.background-color]="safePokemonType().color">
+    <img class="tw-w-3 tw-aspect-square" [src]="safePokemonType().image" alt="pokemon_type_icon">
+    {{safePokemonType().name}}
+</div>

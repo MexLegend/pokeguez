@@ -1,0 +1,50 @@
+<section class="
+    tw-flex 
+    tw-flex-1 
+    tw-flex-col 
+    tw-h-[calc(100%-64px)] 
+    tw-w-full 
+    tw-items-center 
+    tw-justify-start 
+    tw-z-20
+    tw-gap-20
+    tw-pb-10">
+    <div class="tw-flex tw-flex-col tw-items-center tw-mt-10 tw-text-white tw-gap-2">
+        <h3 class="tw-text-3xl tw-font-pocket-monk">Gotta catch’em all!</h3>
+        <div class="tw-flex tw-gap-2">
+            <p class="tw-flex tw-gap-1">
+                <strong>11</strong>
+                <span>Pokémon guessed</span>
+            </p>
+        </div>
+        <button class="
+            tw-mt-2
+            tw-py-3 
+            tw-px-6 
+            tw-rounded-lg 
+            tw-bg-white
+            tw-text-dark-blue
+            tw-uppercase
+            tw-font-bold
+            tw-font-roboto-slab
+            tw-min-w-[120px]
+            tw-transition-all
+            tw-duration-200
+            hover:tw-bg-opacity-80
+            active:tw-scale-95" routerLink="/pokedex">
+            Restart Pokédex
+        </button>
+    </div>
+    <div class="
+        tw-grid 
+        tw-grid-cols-1 
+        md:tw-grid-cols-2 
+        lg:tw-grid-cols-3 
+        2xl:tw-grid-cols-4 
+        tw-gap-8 
+        tw-gap-y-12
+        tw-items-center 
+        tw-w-full">
+        <app-pokemon-card *ngFor="let pokemon of pokemons()" [pokemon]="pokemon" />
+    </div>
+</section>

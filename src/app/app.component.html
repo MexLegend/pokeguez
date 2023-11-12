@@ -1,7 +1,14 @@
-<section class="tw-overflow-hidden">
-  <app-navbar />
+<section class="relative">
+  <app-navbar class="tw-z-50" />
   <app-container class="tw-relative tw-block tw-mt-16">
-    <app-hero class="tw-w-full tw-z-20" />
+    <div class="tw-z-30 tw-flex tw-flex-1 tw-w-full tw-h-full">
+      <router-outlet />
+    </div>
+  </app-container>
+  <div class="
+    tw-fixed
+    tw-inset-0
+    tw-bg-dark-blue">
     <div class="
       tw-absolute
       tw-w-[600px] 
@@ -10,15 +17,24 @@
       -tw-left-[150px] 
       -tw-top-[400px] 
       tw-bg-[#5f37bc] 
-      tw-blur-[150px]"></div>
+      tw-blur-[150px]">
+    </div>
     <div class="
       tw-absolute
       tw-w-[600px] 
       tw-rounded-full 
       tw-aspect-square 
       -tw-right-[150px] 
-      -tw-bottom-[400px] 
+      -tw-bottom-[500px] 
       tw-bg-[#6e2c97] 
-      tw-blur-[150px]"></div>
-  </app-container>
+      tw-blur-[120px]">
+    </div>
+  </div>
 </section>
+<app-modal *ngIf="showModal" class="
+    tw-fixed 
+    tw-w-screen 
+    tw-h-screen 
+    tw-z-[999] 
+    tw-inset-0 
+    tw-pointer-events-none" />

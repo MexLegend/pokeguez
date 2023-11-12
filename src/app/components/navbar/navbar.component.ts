@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ContainerComponent } from '../container/container.component';
 import { Link } from 'src/app/interfaces/link';
 import { links } from 'src/app/mocks/links';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -15,5 +15,7 @@ import { RouterModule } from '@angular/router';
 export class NavbarComponent {
 
   links: Link[] = links;
+
+  constructor(public router: Router) { }
 
 }

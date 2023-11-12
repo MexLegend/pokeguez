@@ -1,0 +1,89 @@
+<div class="tw-grid tw-place-items-center">
+    <div class="
+        tw-relative
+        tw-flex 
+        tw-flex-1
+        tw-flex-col
+        tw-gap-2
+        tw-bg-black/25
+        tw-outline
+        tw-outline-1
+        tw-outline-white/5
+        tw-rounded-xl
+        tw-font-roboto-slab
+        tw-w-60
+        tw-items-center 
+        tw-justify-center">
+        <div class="-tw-mt-6 tw-flex tw-w-36 tw-h-36 tw-aspect-square tw-pointer-events-none">
+            <img [src]="pokemon.sprites.other.dream_world.front_default" [alt]="pokemon.name + '_avatar'"
+                class="tw-w-full tw-h-full tw-object-contain tw-object-center tw-origin-center"
+                [ngClass]="{'tw-brightness-0': !pokemon.isUnlocked}">
+        </div>
+        <div class="
+            tw-flex 
+            tw-w-full 
+            tw-min-h-[190px]
+            tw-flex-col 
+            tw-items-center 
+            tw-gap-2 
+            tw-relative 
+            tw-overflow-hidden 
+            tw-rounded-xl ">
+            <div class="">
+                <h2 class="tw-text-white tw-text-2xl tw-capitalize"
+                    [ngClass]="{'tw-font-pocket-monk': !pokemon.isUnlocked}">
+                    {{pokemon.isUnlocked ? pokemon.name : '????'}}
+                </h2>
+            </div>
+            <ng-container *ngIf="pokemon.isUnlocked">
+                <div class="tw-flex tw-w-full tw-items-center tw-justify-evenly tw-my-1">
+                    <app-pokemon-type-tag [type]="type" *ngFor="let type of pokemon.types" />
+                </div>
+                <div class="tw-flex tw-w-full tw-items-center tw-justify-evenly">
+                    <div class="tw-flex tw-flex-col tw-text-white">
+                        <h4 class="tw-text-lg tw-font-semibold tw-uppercase tw-leading-none">
+                            {{pokemon.height / 10}} M
+                        </h4>
+                        <small class="tw-text-xs">Height</small>
+                    </div>
+                    <div class="tw-flex tw-flex-col tw-text-white">
+                        <h4 class="tw-text-lg tw-font-semibold tw-uppercase tw-leading-none">
+                            {{pokemon.weight / 10}} KG
+                        </h4>
+                        <small class="tw-text-xs">Weight</small>
+                    </div>
+                </div>
+                <button class="
+                    tw-rounded-lg 
+                    tw-bg-black 
+                    tw-text-white 
+                    tw-py-2 
+                    tw-px-6
+                    tw-font-semibold 
+                    tw-text-sm
+                    tw-mt-3 
+                    tw-mb-5
+                    tw-transition-all
+                    tw-duration-200
+                    active:tw-scale-95
+                    hover:tw-bg-primary-color" (click)="handleOpenPokemonDialog()">
+                    More details
+                </button>
+            </ng-container>
+            <p *ngIf="!pokemon.isUnlocked" class="tw-text-white tw-font-medium tw-my-auto">
+                Unlock to view details
+            </p>
+            <div class="
+                tw-absolute
+                -tw-z-10
+                tw-w-[110%]
+                tw-rounded-full 
+                tw-aspect-square 
+                tw-left-0
+                tw-right-0
+                -tw-bottom-[180px] 
+                tw-blur-[50px]" [ngClass]="[pokemon.isUnlocked ? 'tw-bg-primary-color' : 'tw-bg-black/60']">
+            </div>
+        </div>
+    </div>
+</div>

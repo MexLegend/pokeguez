@@ -1,0 +1,10 @@
+.pokemon-container {
+    &::-webkit-scrollbar {
+        @apply tw-w-4 tw-bg-dark-blue;
+    }
+    &::-webkit-scrollbar-thumb {
+        @apply tw-bg-primary-color tw-bg-clip-padding tw-rounded-full;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+    }
+}

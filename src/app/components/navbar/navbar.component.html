@@ -12,7 +12,7 @@
                     tw-font-pocket-monk
                     tw-tracking-widest
                     tw-text-lg
-                    active:tw-scale-95">
+                    active:tw-scale-95" [ngClass]="{'tw-text-primary-color ': router.url === link.link}">
                         {{link.label}}
                     </button>
                 </li>
