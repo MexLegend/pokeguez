@@ -1,0 +1,4 @@
+<div class="tw-flex tw-flex-col tw-items-center tw-justify-evenly">
+    <app-pokemon-stat *ngFor="let baseStat of baseStats()" [label]="baseStat.name" [value]="baseStat.value"
+        [maxValue]="baseStat.maxValue" class="tw-w-full" />
+</div>

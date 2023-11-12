@@ -1,7 +1,7 @@
 <article class="tw-flex tw-flex-col">
-    <div class="tw-flex tw-flex-1 tw-max-w-[90px] tw-aspect-square tw-mx-auto">
-        <img class="tw-w-full tw-h-full tw-object-contain tw-object-center tw-origin-center" src="assets/images/2.svg"
-            alt="evolution_thumbnail">
+    <div class="tw-flex tw-flex-1 tw-h-full tw-max-h-[90px] tw-w-full tw-max-w-[90px] tw-aspect-square tw-mx-auto tw-my-2">
+        <img class="tw-w-full tw-h-full tw-object-contain tw-object-center tw-origin-center"
+            [src]="pokemonEvolutionImage()" alt="evolution_thumbnail">
     </div>
-    <app-pokemon-section-info title="Ivisaur" subtitle="#002" />
+    <app-pokemon-section-info [title]="pokemonEvolution.name" [subtitle]="'#' + pokemonEvolutionNumber()" />
 </article>

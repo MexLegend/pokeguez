@@ -9,6 +9,7 @@ export interface Pokemon {
     height: number;
     moves: PokemonMove[];
     order: number;
+    species: PokemonSpecies;
     sprites: PokemonSprite;
     stats: PokemonStat[];
     types: PokemonType[];
@@ -26,6 +27,50 @@ export interface PokemonSpecies {
     url: string;
 }
 
+export interface PokemonSpeciesEvolution {
+    evolution_chain: {
+        url: string;
+    };
+    genera: PokemonGenera[];
+}
+
+export interface PokemonGenera {
+    genus: string;
+    language: {
+        name: string;
+        url: string;
+    }
+}
+
+export interface PokemonEvolutionsAndCategory {
+    evolutions: PokemonEvolution[];
+    category: string;
+}
+
+export interface PokemonEvolution {
+    id: string;
+    name: string;
+    minLevel: number;
+    triggerName: string | null;
+    item: string | null;
+}
+
+export interface PokemonEvolutionChain {
+    chain: PokemonEvolutionChainEvolves;
+}
+
+export interface PokemonEvolutionChainEvolves {
+    evolution_details: EvolutionDetail[];
+    evolves_to: PokemonEvolutionChainEvolves[];
+    species: PokemonSpecies;
+}
+
+export interface EvolutionDetail {
+    item: null;
+    min_level: number;
+    trigger: PokemonSpecies;
+}
+
 export interface PokemonMove {
     move: PokemonSpecies;
 }
@@ -34,6 +79,14 @@ export interface PokemonStat {
     base_stat: number;
     effort: number;
     stat: PokemonSpecies;
+}
+
+export type PokemonStatName = "hp" | "attack" | "defense" | "special-attack" | "special-defense" | "speed";
+
+export interface PokemonSafeStat {
+    name: string;
+    value: number;
+    maxValue: number;
 }
 
 export interface PokemonSprite {

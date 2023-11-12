@@ -11,7 +11,9 @@
                 <h3 class="tw-font-semibold tw-text-2xl tw-font-roboto-slab tw-text-white tw-capitalize">
                     {{pokemon.name}}
                 </h3>
-                <span class="tw-font-medium tw-text-white tw-font-roboto-slab tw-tracking-widest">#094</span>
+                <span class="tw-font-medium tw-text-white tw-font-roboto-slab tw-tracking-widest">
+                    #{{pokemonNumber()}}
+                </span>
             </div>
             <div class="tw-flex tw-justify-center tw-items-center tw-w-full tw-max-w-[226px] tw-mx-auto tw-mt-2">
                 <img class="tw-drop-shadow-lg" [src]="pokemon.sprites.other.dream_world.front_default"
@@ -22,7 +24,7 @@
                     customClasses="!tw-px-10 !tw-py-[6px]" />
             </div>
             <div class="tw-flex tw-w-full tw-items-center tw-justify-evenly">
-                <app-pokemon-section-info title="Shadow" subtitle="Category" />
+                <app-pokemon-section-info [title]="pokemonCategory()" subtitle="Category" />
                 <div class="
                     tw-flex 
                     tw-px-8
@@ -39,18 +41,13 @@
             <div class="flex tw-w-full tw-items-center tw-justify-center tw-text-center">
                 <h4 class="tw-text-white tw-font-semibold tw-text-xl tw-font-roboto-slab tw-my-3">Evolutions</h4>
                 <div class="tw-flex tw-items-center tw-justify-evenly">
-                    <app-pokemon-evolution />
+                    <app-pokemon-evolution *ngFor="let pokemonEvolution of pokemonEvolutions()"
+                        [pokemonEvolution]="pokemonEvolution" />
                 </div>
             </div>
             <div class="flex tw-w-full tw-items-center tw-justify-center tw-text-center">
                 <h4 class="tw-text-white tw-font-semibold tw-text-xl tw-font-roboto-slab tw-my-3">Stats</h4>
-                <div class="tw-flex tw-flex-col tw-items-center tw-justify-evenly">
-                    <app-pokemon-stat label="HP" [value]="78" [maxValue]="250" class="tw-w-full" />
-                    <app-pokemon-stat label="Attack" [value]="84" [maxValue]="134" class="tw-w-full" />
-                    <app-pokemon-stat label="Defense" [value]="78" [maxValue]="80" class="tw-w-full" />
-                    <app-pokemon-stat label="Speed" [value]="100" [maxValue]="140" class="tw-w-full" />
-                    <app-pokemon-stat label="Special" [value]="109" [maxValue]="135" class="tw-w-full" />
-                </div>
+                <app-pokemon-stats-list [pokemonStats]="pokemon.stats" />
             </div>
         </div>
         <div class="

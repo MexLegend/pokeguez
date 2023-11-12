@@ -1,11 +1,14 @@
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalAction, ModalService } from 'src/app/services/modal.service';
-import { Pokemon } from 'src/app/interfaces/pokemon';
+import { Pokemon, PokemonEvolution } from 'src/app/interfaces/pokemon';
 import { PokemonTypeTagComponent } from 'src/app/components/pokedex/components/pokemon-type-tag/pokemon-type-tag.component';
 import { PokemonSectionInfoComponent } from './components/pokemon-section-info/pokemon-section-info.component';
 import { PokemonEvolutionComponent } from './components/pokemon-evolution/pokemon-evolution.component';
 import { PokemonStatComponent } from './components/pokemon-stat/pokemon-stat.component';
+import { PokemonService } from '../../services/pokemon.service';
+import { getPokemonNumber } from 'src/app/helpers/get-pokemon-number';
+import { PokemonStatsListComponent } from './components/pokemon-stats-list/pokemon-stats-list.component';
 
 export interface PokemoneDialogData {
   action: ModalAction;
@@ -21,7 +24,7 @@ export interface PokemoneDialogData {
     PokemonTypeTagComponent,
     PokemonSectionInfoComponent,
     PokemonEvolutionComponent,
-    PokemonStatComponent
+    PokemonStatsListComponent
   ],
   templateUrl: './pokemon.component.html',
   styleUrls: ['./pokemon.component.scss']
@@ -31,8 +34,13 @@ export class PokemonComponent {
   @Input() data!: PokemoneDialogData;
   @Input() onCloseEmitter!: EventEmitter<any>;
 
+  pokemonNumber: Signal<string> = computed(() => getPokemonNumber(this.data.pokemon.id.toString()));
+  pokemonCategory: WritableSignal<string> = signal("");
+  pokemonEvolutions: WritableSignal<PokemonEvolution[]> = signal([]);
+
   constructor(
-    private modalService: ModalService
+    private modalService: ModalService,
+    private pokemonService: PokemonService
   ) { }
 
   handleClose(data?: any) {
@@ -40,5 +48,17 @@ export class PokemonComponent {
     this.onCloseEmitter.emit(data)
   }
 
+  ngAfterViewInit(): void {
+    this.getPokemonEvolutionsAndCategory();
+  }
+
+  getPokemonEvolutionsAndCategory() {
+    const getPokemonEvolutionsAndCategorySub$ = this.pokemonService.getPokemonEvolutionsAndCategory(this.data.pokemon.species.url)
+      .subscribe(({ category, evolutions }) => {
+        this.pokemonEvolutions.set(evolutions);
+        this.pokemonCategory.set(category);
+        getPokemonEvolutionsAndCategorySub$.unsubscribe();
+      })
+  }
 
 }

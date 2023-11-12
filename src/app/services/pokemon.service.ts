@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GetPokedexParams, Pokedex } from '../interfaces/pokedex';
 import { Observable, forkJoin, map, mergeMap } from 'rxjs';
-import { Pokemon } from '../interfaces/pokemon';
+import { Pokemon, PokemonEvolution, PokemonEvolutionChain, PokemonEvolutionChainEvolves, PokemonEvolutionsAndCategory, PokemonSpeciesEvolution } from '../interfaces/pokemon';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
 
-  POKEMON_API = "https://pokeapi.co/api/v2/pokemon";
-  POKEMON_IMAGE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world"
+  private readonly POKEMON_API = "https://pokeapi.co/api/v2/pokemon";
 
   constructor(private http: HttpClient) { }
 
@@ -22,30 +21,44 @@ export class PokemonService {
       const pokemonsObservables = forkJoin(resp.results.map(resp => this.http.get<Pokemon>(resp.url)));
       return pokemonsObservables;
     }
-      // ({
-      //   ...resp,
-      //   results: resp.results.map(pokemon => {
-
-      //     const pokemonId = this.extractIdFromUrl(pokemon.url!);
-
-
-      //     return {
-      //       ...pokemon,
-      //       image: `${this.POKEMON_IMAGE_URL}/${pokemonId}.svg`,
-      //       id: +pokemonId 
-      //     }
-      //   })
-      // })
     ));
   }
 
-  extractIdFromUrl(url: string): string {
-    const segments = url.split('/');
-    return segments[segments.length - 2];
+  getPokemonEvolutionsAndCategory(pokemonSpecieUrl: string): Observable<PokemonEvolutionsAndCategory> {
+    return this.http.get<PokemonSpeciesEvolution>(pokemonSpecieUrl).pipe(mergeMap(({ evolution_chain: { url }, genera }) => {
+
+      const category = genera.find(g => g.language.name === 'en');
+
+      return this.http.get<PokemonEvolutionChain>(url).pipe(map(({ chain }) => ({
+        category: category!.genus.replace("Pokémon", "").trim(),
+        evolutions: this.getEvolutions(chain)
+      })))
+    }));
   }
 
-  getPokemon(pokemonUrl: string): Observable<Pokemon> {
-    return this.http.get<Pokemon>(pokemonUrl);
+  getEvolutions(pokemonEvolutionChain: PokemonEvolutionChainEvolves): PokemonEvolution[] {
+    const evolutions: PokemonEvolution[] = [];
+
+    do {
+      const evolutionDetails = pokemonEvolutionChain.evolution_details[0];
+
+      evolutions.push({
+        id: this.getIdFromUrl(pokemonEvolutionChain.species.url),
+        name: pokemonEvolutionChain.species.name,
+        minLevel: evolutionDetails?.min_level || 1,
+        triggerName: evolutionDetails?.trigger?.name || null,
+        item: evolutionDetails?.item || null
+      });
+
+      pokemonEvolutionChain = pokemonEvolutionChain.evolves_to[0];
+    } while (!!pokemonEvolutionChain && !!pokemonEvolutionChain.evolves_to);
+
+    return evolutions;
+  }
+
+  getIdFromUrl(pokemonSpecieUrl: string): string {
+    const segments = pokemonSpecieUrl.split('/');
+    return segments[segments.length - 2];
   }
 
 }
