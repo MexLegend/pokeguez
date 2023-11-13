@@ -24,9 +24,11 @@
                     customClasses="!tw-px-10 !tw-py-[6px]" />
             </div>
             <div class="tw-flex tw-w-full tw-items-center tw-justify-evenly">
-                <app-pokemon-section-info [title]="pokemonCategory()" subtitle="Category" />
+                <app-pokemon-section-info class="tw-flex tw-flex-1 tw-justify-center" [title]="pokemonCategory()"
+                    subtitle="Category" [isLoading]="isLoading" />
                 <div class="
                     tw-flex 
+                    tw-flex-1
                     tw-px-8
                     tw-mx-8
                     tw-border-l 
@@ -34,18 +36,27 @@
                     tw-border-l-primary-color/40 
                     tw-border-r-primary-color/40
                     ">
-                    <app-pokemon-section-info [title]="(pokemon.height / 10) + ' M'" subtitle="Heigth" />
+                    <app-pokemon-section-info class="tw-flex tw-flex-1 tw-justify-center"
+                        [title]="(pokemon.height / 10) + ' M'" subtitle="Heigth" [isLoading]="isLoading" />
                 </div>
-                <app-pokemon-section-info [title]="(pokemon.weight / 10) + ' KG'" subtitle="Weigth" />
+                <app-pokemon-section-info class="tw-flex tw-flex-1 tw-justify-center"
+                    [title]="(pokemon.weight / 10) + ' KG'" subtitle="Weigth" [isLoading]="isLoading" />
             </div>
             <div class="flex tw-w-full tw-items-center tw-justify-center tw-text-center">
-                <h4 class="tw-text-white tw-font-semibold tw-text-xl tw-font-roboto-slab tw-my-3">Evolutions</h4>
+                <h4 *ngIf="!isLoading" class="tw-text-white tw-font-semibold tw-text-xl tw-font-roboto-slab tw-my-3">
+                    Evolutions
+                </h4>
+                <ngx-skeleton-loader *ngIf="isLoading" class="tw-flex tw-w-full tw-max-w-[60%] tw-mx-auto tw-my-3"
+                    appearance="custom-content" animation="pulse">
+                    <div class="tw-w-full tw-h-5 tw-rounded-lg tw-bg-primary-color/10"></div>
+                </ngx-skeleton-loader>
                 <div class="tw-flex tw-items-center tw-justify-evenly">
-                    <app-pokemon-evolution *ngFor="let pokemonEvolution of pokemonEvolutions()"
-                        [pokemonEvolution]="pokemonEvolution" />
+                    <app-pokemon-evolution class="tw-flex tw-flex-1 tw-justify-center"
+                        *ngFor="let pokemonEvolution of pokemonEvolutions()" [pokemonEvolution]="pokemonEvolution"
+                        [isLoading]="isLoading" />
                 </div>
             </div>
-            <div class="flex tw-w-full tw-items-center tw-justify-center tw-text-center">
+            <div *ngIf="!isLoading" class="flex tw-w-full tw-items-center tw-justify-center tw-text-center">
                 <h4 class="tw-text-white tw-font-semibold tw-text-xl tw-font-roboto-slab tw-my-3">Stats</h4>
                 <app-pokemon-stats-list [pokemonStats]="pokemon.stats" />
             </div>

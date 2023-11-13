@@ -1,7 +1,25 @@
-<article class="tw-flex tw-flex-col">
-    <div class="tw-flex tw-flex-1 tw-h-full tw-max-h-[90px] tw-w-full tw-max-w-[90px] tw-aspect-square tw-mx-auto tw-my-2">
+<article *ngIf="!isLoading" class="tw-flex tw-flex-col">
+    <div class="
+        tw-flex 
+        tw-flex-1 
+        tw-h-full 
+        tw-max-h-[90px] 
+        tw-w-full 
+        tw-max-w-[90px] 
+        tw-aspect-square 
+        tw-mx-auto 
+        tw-my-2">
         <img class="tw-w-full tw-h-full tw-object-contain tw-object-center tw-origin-center"
             [src]="pokemonEvolutionImage()" alt="evolution_thumbnail">
     </div>
     <app-pokemon-section-info [title]="pokemonEvolution.name" [subtitle]="'#' + pokemonEvolutionNumber()" />
 </article>
+
+<ngx-skeleton-loader *ngIf="isLoading" class="tw-flex tw-w-full tw-flex-col" appearance="custom-content"
+    animation="pulse">
+    <div class="tw-flex tw-flex-col tw-gap-4 tw-w-full tw-max-w-[90px] tw-mx-auto">
+        <div class="tw-w-full tw-h-[90px] tw-aspect-square tw-rounded-lg tw-bg-primary-color/10"></div>
+        <div class="tw-w-full tw-h-3 tw-rounded-lg tw-bg-primary-color/10"></div>
+        <div class="tw-w-full tw-h-2 tw-rounded-lg tw-bg-primary-color/10"></div>
+    </div>
+</ngx-skeleton-loader>

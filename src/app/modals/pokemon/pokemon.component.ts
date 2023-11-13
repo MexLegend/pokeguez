@@ -9,6 +9,7 @@ import { PokemonStatComponent } from './components/pokemon-stat/pokemon-stat.com
 import { PokemonService } from '../../services/pokemon.service';
 import { getPokemonNumber } from 'src/app/helpers/get-pokemon-number';
 import { PokemonStatsListComponent } from './components/pokemon-stats-list/pokemon-stats-list.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 export interface PokemoneDialogData {
   action: ModalAction;
@@ -24,7 +25,8 @@ export interface PokemoneDialogData {
     PokemonTypeTagComponent,
     PokemonSectionInfoComponent,
     PokemonEvolutionComponent,
-    PokemonStatsListComponent
+    PokemonStatsListComponent,
+    NgxSkeletonLoaderModule
   ],
   templateUrl: './pokemon.component.html',
   styleUrls: ['./pokemon.component.scss']
@@ -37,6 +39,7 @@ export class PokemonComponent {
   pokemonNumber: Signal<string> = computed(() => getPokemonNumber(this.data.pokemon.id.toString()));
   pokemonCategory: WritableSignal<string> = signal("");
   pokemonEvolutions: WritableSignal<PokemonEvolution[]> = signal([]);
+  isLoading: boolean = true;
 
   constructor(
     private modalService: ModalService,
@@ -57,6 +60,7 @@ export class PokemonComponent {
       .subscribe(({ category, evolutions }) => {
         this.pokemonEvolutions.set(evolutions);
         this.pokemonCategory.set(category);
+        this.isLoading = false;
         getPokemonEvolutionsAndCategorySub$.unsubscribe();
       })
   }

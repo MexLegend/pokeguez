@@ -1,4 +1,11 @@
-<div class="tw-flex tw-flex-col">
+<div *ngIf="!isLoading" class="tw-flex tw-flex-col tw-items-center">
     <p class="tw-text-white tw-font-semibold tw-text-lg tw-capitalize">{{title}}</p>
     <small class="tw-text-white/80">{{subtitle}}</small>
 </div>
+
+<ngx-skeleton-loader *ngIf="isLoading" class="tw-flex tw-w-full tw-flex-col" appearance="custom-content"  animation="pulse">
+    <div class="tw-flex tw-flex-col tw-gap-4 tw-w-full">
+        <div class="tw-w-full tw-h-4 tw-rounded-lg tw-bg-primary-color/10"></div>
+        <div class="tw-w-full tw-h-3 tw-rounded-lg tw-aspect-square tw-bg-primary-color/10"></div>
+    </div>
+</ngx-skeleton-loader>
