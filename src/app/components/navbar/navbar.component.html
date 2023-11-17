@@ -1,7 +1,8 @@
 <nav class="tw-flex tw-w-full tw-h-16 tw-mt-4 tw-fixed tw-top-0 tw-left-0 tw-z-50">
     <app-container class="tw-w-full">
         <div class="tw-flex tw-w-full tw-h-16 tw-items-center tw-justify-between">
-            <img class="tw-w-auto tw-h-10" src="../../../assets/images/logo.svg" alt="logo" width="120" height="60">
+            <img class="tw-w-auto tw-h-10 tw-cursor-pointer" src="../../../assets/images/logo.svg" alt="logo"
+                width="120" height="60" routerLink="/">
             <ul class="tw-flex tw-gap-7">
                 <li *ngFor="let link of links" [routerLink]="link.link">
                     <button class="
